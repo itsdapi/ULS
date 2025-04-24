@@ -29,7 +29,8 @@ export function getAllPendingAssignment(
       if (courseHomeworks && courseHomeworks.length > 0) {
         // Filter homeworks by states 0, 2, 5 and parse them
         const parsedHomeworks = courseHomeworks
-            .filter(hw => [0, 2, 5].includes(hw.state))
+            .filter(hw => [0, 2, 5].includes(hw.state) &&
+                (!hw.startTime || new Date(hw.startTime) <= new Date()))
             .map(hw => parseHomework(hw, course));
 
         if (parsedHomeworks.length > 0) {
